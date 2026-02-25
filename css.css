@@ -23,10 +23,6 @@ header {
     font-weight: bold;
 }
 
-.cart {
-    font-size: 16px;
-}
-
 .products {
     display: flex;
     gap: 20px;
@@ -77,3 +73,4 @@ header {
 .product button:hover {
     background-color: #2ecc71;
 }
+
