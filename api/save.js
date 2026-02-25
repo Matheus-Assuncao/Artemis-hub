@@ -1,6 +1,6 @@
 import { MongoClient } from 'mongodb';
 
-const uri = "mongodb+srv://mathdevassuncao_db_user:senha123@artemisdb.4eq9rle.mongodb.net/?appName=artemisDB";
+const uri = process.env.MONGODB_URI;
 const client = new MongoClient(uri);
 
 export default async function handler(req, res) {
