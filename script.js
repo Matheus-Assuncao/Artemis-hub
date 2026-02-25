@@ -1,37 +1,36 @@
 const cards = document.querySelectorAll('.kanban-card');
 const columns = document.querySelectorAll('.kanban-items');
 
-// --- FUNÇÃO PARA SALVAR ---
-function saveState() {
+// Substitua suas funções de salvar e carregar por estas:
+
+async function saveState() {
     const state = {};
-    
-    // Percorre cada coluna e anota quais IDs de cards estão dentro dela
     document.querySelectorAll('.kanban-column').forEach(column => {
         const columnId = column.id;
-        const itemsInColumn = Array.from(column.querySelectorAll('.kanban-card'))
-                                   .map(card => card.getAttribute('data-id'));
-        state[columnId] = itemsInColumn;
+        state[columnId] = Array.from(column.querySelectorAll('.kanban-card'))
+                               .map(card => card.getAttribute('data-id'));
     });
 
-    localStorage.setItem('kanban-data', JSON.stringify(state));
-    console.log("Posições salvas!");
+    await fetch('/api/save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(state)
+    });
 }
 
-// --- FUNÇÃO PARA CARREGAR ---
-function loadState() {
-    const savedData = JSON.parse(localStorage.getItem('kanban-data'));
-    
-    if (savedData) {
+async function loadState() {
+    const response = await fetch('/api/load');
+    const savedData = await response.json();
+
+    if (savedData && Object.keys(savedData).length > 0) {
         Object.keys(savedData).forEach(columnId => {
             const columnContainer = document.querySelector(`#${columnId} .kanban-items`);
-            
-            savedData[columnId].forEach(cardId => {
-                // Busca o card pelo ID e move ele para a coluna certa
-                const card = document.querySelector(`.kanban-card[data-id="${cardId}"]`);
-                if (card && columnContainer) {
-                    columnContainer.appendChild(card);
-                }
-            });
+            if (columnContainer) {
+                savedData[columnId].forEach(cardId => {
+                    const card = document.querySelector(`.kanban-card[data-id="${cardId}"]`);
+                    if (card) columnContainer.appendChild(card);
+                });
+            }
         });
     }
 }
