@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projeto Cervejaria Ártemis</title>
     <link rel="stylesheet" href="css.css">
+    <link rel="stylesheet" href="kaba.css">
 </head>
 <body>
     <header>
@@ -31,12 +32,62 @@
             </div>
             
         </section>
+         <div class="kanban-container">
+      <div class="kanban-column" id="todo">
+        <div class="column-header">A Fazer</div>
+        <div class="kanban-items">
+          <div class="kanban-card" draggable="true" data-id="1">
+            <span>Estudar JavaScript</span>
+            <div class="card-controls">
+              <button class="arrow-btn prev" onclick="moveLeft(this)">
+                &#9664;
+              </button>
+              <button class="arrow-btn next" onclick="moveRight(this)">
+                &#9654;
+              </button>
+            </div>
+          </div>
+          <div class="kanban-card" draggable="true" data-id="1">
+            <span>Testando</span>
+            <div class="card-controls">
+              <button class="arrow-btn prev" onclick="moveLeft(this)">
+                &#9664;
+              </button>
+              <button class="arrow-btn next" onclick="moveRight(this)">
+                &#9654;
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
 
-    
+      <div class="kanban-column" id="doing">
+        <div class="column-header">Em Andamento</div>
+        <div class="kanban-items">
+          <div class="kanban-card" draggable="true" data-id="1">
+            <span>Estudar JavaScript</span>
+            <div class="card-controls">
+              <button class="arrow-btn prev" onclick="moveLeft(this)">
+                &#9664;
+              </button>
+              <button class="arrow-btn next" onclick="moveRight(this)">
+                &#9654;
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="kanban-column" id="done">
+        <div class="column-header">Concluído</div>
+        <div class="kanban-items"></div>
+      </div>
+    </div>
+        
       
     </main>
 
-
+    <script src="script.js"></script>
 </body>
 </html>
 

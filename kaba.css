@@ -1,0 +1,137 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #e0e2e5;
+    margin: 0;
+    padding: 20px;
+}
+
+.kanban-container {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    height: 100vh;
+}
+
+.kanban-column {
+    background-color: #ebecf0;
+    width: 300px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.column-header {
+    padding: 15px;
+    font-weight: bold;
+    color: #172b4d;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+.kanban-items {
+    padding: 10px;
+    min-height: 150px; /* Importante para colunas vazias */
+    flex-grow: 1;
+}
+
+.kanban-card {
+    background-color: white;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+    cursor: grab;
+    transition: background-color 0.2s;
+}
+
+.kanban-card:active {
+    cursor: grabbing;
+}
+
+/* Efeito visual ao arrastar */
+.kanban-card.dragging {
+    opacity: 0.5;
+    border: 2px dashed #0079bf;
+}
+
+/* Destaque quando um item está sobre a coluna */
+.kanban-items.drag-over {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
+}
+
+/* 1. Ajuste no container principal */
+.kanban-container {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    padding: 10px;
+    /* Permite scroll lateral em telas pequenas sem quebrar o layout */
+    overflow-x: auto; 
+    height: calc(100vh - 40px);
+}
+
+/* 2. Garante que as colunas não "encolham" */
+.kanban-column {
+    background-color: #ebecf0;
+    min-width: 300px; /* Largura fixa para manter o formato de coluna */
+    max-width: 300px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    max-height: 100%; /* Evita que a coluna saia da tela */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* 3. Media Query para Celulares */
+@media (max-width: 600px) {
+    .kanban-container {
+        /* Mudamos para coluna única em telas muito estreitas */
+        flex-direction: column;
+        align-items: center;
+        overflow-x: hidden;
+        height: auto;
+    }
+
+    .kanban-column {
+        width: 100%;
+        max-width: 100%; /* Coluna ocupa a largura toda do celular */
+        margin-bottom: 20px;
+    }
+    
+    .kanban-items {
+        min-height: 100px; /* Reduz um pouco o espaço vazio */
+    }
+}
+
+.kanban-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-controls {
+    display: flex;
+    gap: 5px;
+}
+
+.arrow-btn {
+    background: #f4f5f7;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 2px 6px;
+    font-size: 12px;
+    transition: background 0.2s;
+}
+
+.arrow-btn:hover {
+    background: #ebecf0;
+}
+
+/* Esconde a seta da esquerda na primeira coluna e a da direita na última */
+#todo .prev, 
+#done .next {
+    display: none;
+}
